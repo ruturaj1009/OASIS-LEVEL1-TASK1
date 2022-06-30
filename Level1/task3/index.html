@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=.0">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>Temp-convert</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(54,117,148);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main{
+            margin-top: 3rem;
+            margin-left: 3rem;
+            zoom: 120%;
+            height: 500px;
+            width: 300px;
+            /* background-color: rgb(118, 179, 248); */
+            background-image: url("bg.gif");
+            background-repeat: no-repeat;
+            block-size: cover;
+            background-position: 65% 55%;
+        }
+        form{
+            margin-top: 4rem;
+            margin-left: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            zoom: 130%;
+        }
+        #answer{
+            text-align: center;
+        }
+        #btn1{
+            size: 10px;
+            color: red;
+            width: 55px;
+        }
+        .back-video{
+            position: relative;
+            right: 0;
+            bottom: 0;
+        }
+        span{
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <form id="tempconv" onsubmit="calctemp(); return false;">
+            <label for="temp">Enter the temperature value</label>
+            <input type="number" name="temp" id="temp">
+            <br>
+            <label for="inp1">From</label>
+            <select name="temp_d" id="temp1">
+                <option value="cel">Celcius</option>
+                <option value="far">Farenhit</option>
+                <option value="kel">Kelvin</option>
+            </select>
+            <br>
+            <label for="inp2">To</label>
+            <select name="temp_d" id="temp2">
+                <option value="cel">Celcius</option>
+                <option value="far">Farenhit</option>
+                <option value="kel">Kelvin</option>
+            </select>
+            <br>
+            <input type="submit" name="temp" id="btn1">
+            <br>
+            <br>
+            <Span id="answer"></Span>
+        </form>
+    </div>
+    <script>
+        const calctemp=() =>{
+            const num = document.getElementById("temp").value;
+            const temp1 = document.getElementById("temp1");
+            const val1 =  temp1.options[temp1.selectedIndex].value;
+            const temp2 = document.getElementById("temp2");
+            const val2 =  temp1.options[temp2.selectedIndex].value;
+            
+            const celtofar = (n)=>{
+                let f = parseFloat((n*9/5)+32).toFixed(2);
+                return f;
+            }
+            const celtokel = (n)=>{
+                let j = parseFloat(Number(n)+273.15).toFixed(2);
+                return j;
+            }
+            const fartocel = (n)=>{
+                let c = parseFloat((n-32)*5/9).toFixed(2);
+                return c;
+            }
+            const fartokel = (n)=>{
+                let k = parseFloat(((n-32)*5/9)+273.15).toFixed(2);
+                return k;
+            }
+            const keltocel = (n)=>{
+                let c = parseFloat(n-273.15).toFixed(2);
+                return c;
+            }
+            const keltofar = (n)=>{
+                let f = parseFloat(((n-273.15)*9/5)+32).toFixed(2);
+                return f;
+            }
+
+            let result;
+            if(val1=='cel'&&val2=='cel'){
+                result = num;
+                document.getElementById('answer').innerHTML= `${result} °Celcius`;
+            }
+            if(val1=='cel' && val2=='far'){
+                result = celtofar(num);
+                document.getElementById('answer').innerHTML= `${result} °Farenhit`;
+            }
+            if(val1=='cel' && val2=='kel'){
+                result = celtokel(num);
+                document.getElementById('answer').innerHTML= `${result} °Kelvin`;
+            }
+            
+            if(val1=='far' && val2=='far'){
+                result = num;
+                document.getElementById('answer').innerHTML= `${result} °Farenhit`;
+            }
+            if(val1=='far' && val2=='cel'){
+                result = fartocel(num);
+                document.getElementById('answer').innerHTML= `${result} °Celcius`;
+            }
+            if(val1=='far' && val2=='kel'){
+                result = fartokel(num);
+                document.getElementById('answer').innerHTML= `${result} °Kelvin`;
+            }
+            
+            if(val1=='kel' && val2=='kel'){
+                result = num;
+                document.getElementById('answer').innerHTML= `${result} °Kelvin`;
+            }
+            if(val1=='kel' && val2=='cel'){
+                result = keltocel(num);
+                document.getElementById('answer').innerHTML= `${result} °Celcius`;
+            }
+            if(val1=='kel' && val2=='far'){
+                result = keltofar(num);
+                document.getElementById('answer').innerHTML= `${result} °Farenhit`;
+            }
+        }
+    </script>
+</body>
+</html>
